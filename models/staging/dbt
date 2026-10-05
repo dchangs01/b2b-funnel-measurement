@@ -1,8 +1,0 @@
-From now on, every time you open a new Terminal window for this project, run:
-
-bash
-cd ~/Projects/b2b_funnel_mock_data
-source .venv/bin/activate
-
-
-/Users/dchang/Projects/b2b_funnel_mock_data/warehouse.duckdb

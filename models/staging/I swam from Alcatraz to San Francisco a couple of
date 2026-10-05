@@ -1,5 +1,0 @@
-I swam from Alcatraz to San Francisco a couple of years ago. 
-
-I also single-handedly re-built the ads measurement infrastructure for the largest media buyer in the world from ground up – migrating pipelines from reliance on ad server log files to the ADH clean room, solving for signal loss when Apple and Google first started implementing privacy restrictions, and restoring measureable impressions by over 100%, avoiding attribution breakage for over $2B worth of paid media.
-
-CUSTOMER_PLACE_ORDER_DATETIME	CUSTOMER_PLACE_ORDER_DATE	CUSTOMER_PLACE_ORDER_TIME	PLACED_ORDER_WITH_RESTAURANT_DATETIME	PLACED_ORDER_WITH_RESTAURANT_DATE	PLACED_ORDER_WITH_RESTAURANT_TIME	DRIVER_AT_RESTAURANT_DATETIME	DRIVER_AT_RESTAURANT_DATE	DRIVER_AT_RESTAURANT_TIME	DELIVERED_TO_CUSTOMER_DATETIME	DELIVERED_TO_CUSTOMER_DATE	DELIVERED_TO_CUSTOMER_TIME	DELIVERY_TIME_MINUTES	DRIVER_ID	RESTAURANT_ID	CUSTOMER_ID	DELIVERY_REGION	IS_ASAP	ORDER_TOTAL	DISCOUNT_AMOUNT	TIP_AMOUNT	REFUNDED_AMOUNT
