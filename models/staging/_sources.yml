@@ -1,0 +1,119 @@
+version: 2
+
+# Drop this file into your dbt project at models/staging/_sources.yml (or similar).
+# Assumes the data was loaded with load_to_duckdb.py, so each source is a schema
+# in the DuckDB database your dbt profile points at.
+
+sources:
+  - name: salesforce
+    description: Salesforce objects as landed by Fivetran (snake_case columns, soft deletes via is_deleted).
+    schema: salesforce
+    tables:
+      - name: account
+        description: Companies. Loaded from the target-account list, or created when a lead from a new company converts.
+        columns:
+          - name: id
+            tests: [unique, not_null]
+          - name: website
+            description: Company domain. Use it to match unconverted leads (email domain) to accounts.
+          - name: segment_c
+            description: Custom field. SMB / Mid-Market / Enterprise.
+          - name: type
+            description: Prospect or Customer.
+
+      - name: lead
+        description: Unqualified people. Company is free text and not linked to an account until conversion.
+        columns:
+          - name: id
+            tests: [unique, not_null]
+          - name: status
+            description: Open, MQL, Working, Converted, Recycled, Unqualified (current value only; see lead_history).
+          - name: mql_date_c
+            description: Custom lifecycle field. Occasionally missing even when lead_history shows an MQL.
+          - name: sql_date_c
+            description: Custom lifecycle field. Equals the conversion date.
+          - name: converted_opportunity_id
+            description: Only set when the opportunity was created at conversion. Later-created opps link through opportunity_contact_role.
+
+      - name: lead_history
+        description: Field history for lead status changes (one row per change).
+        columns:
+          - name: id
+            tests: [unique, not_null]
+
+      - name: contact
+        description: People tied to an account. Created when a lead converts; lifecycle dates carried over.
+        columns:
+          - name: id
+            tests: [unique, not_null]
+
+      - name: opportunity
+        description: Deals. Current state only; stage timing lives in opportunity_history.
+        columns:
+          - name: id
+            tests: [unique, not_null]
+          - name: campaign_id
+            description: Primary Campaign Source. Only populated when the opp was created at lead conversion.
+
+      - name: opportunity_history
+        description: One row per change to stage, amount, or close date.
+        columns:
+          - name: id
+            tests: [unique, not_null]
+
+      - name: opportunity_contact_role
+        description: Which contacts are on which opportunity. Exactly one primary per opportunity.
+        columns:
+          - name: id
+            tests: [unique, not_null]
+
+      - name: campaign
+        description: Marketing programs (webinars, conferences, dinners, paid media, syndication, newsletters, nurture).
+        columns:
+          - name: id
+            tests: [unique, not_null]
+
+      - name: campaign_member
+        description: >
+          Marketing touches. One row per person per campaign. After a lead converts, its rows also
+          carry the contact_id. has_responded is true for webinar *registrations* as well as attendance,
+          so filter on status when you mean "attended".
+        columns:
+          - name: id
+            tests: [unique, not_null]
+
+      - name: user
+        description: Salesforce users (SDRs, AEs, marketing).
+        quoting:
+          identifier: true
+        columns:
+          - name: id
+            tests: [unique, not_null]
+
+  - name: marketing_ops
+    schema: marketing_ops
+    tables:
+      - name: experiment_assignment
+        description: >
+          MQL Nurture Program holdout. Account-level, 80/20, permuted blocks of 5 within segment,
+          assigned at the account's first MQL between 2025-07-01 and 2026-03-31.
+        columns:
+          - name: account_id
+            tests: [unique, not_null]
+
+  - name: ads
+    schema: ads
+    tables:
+      - name: ad_spend_daily
+        description: Daily spend, impressions, and clicks for Google Ads and LinkedIn Ads, mapped to Salesforce campaigns.
+
+  - name: app
+    schema: app
+    tables:
+      - name: users
+        description: Self-serve product sign-ups. Join to leads/contacts on email, or to accounts on email domain.
+        columns:
+          - name: user_id
+            tests: [unique, not_null]
+      - name: usage_monthly
+        description: One row per user per month with any activity.

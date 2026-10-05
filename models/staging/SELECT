@@ -1,0 +1,65 @@
+SELECT
+	DATE_TRUNC(date, MONTH) month,
+	store_id,
+	COUNT(store_id) august_deliveries_received,
+	SUM(order_value) revenue
+FROM Table_DeliveryData
+WHERE store_id = 123
+AND EXTRACT(MONTH FROM date) = 8
+GROUP BY 1, 2
+
+SELECT
+	business_id,
+	COUNT(store_id) stores,
+	COUNTIF(dashpass = "yes") on_dashpass
+FROM `Table_BusinessData`
+WHERE business_id = 890
+GROUP BY 1
+
+WITH kevincarla_bus AS (
+	SELECT
+		business_id
+	FROM `Table_AccountOwner_Business_Mapping`
+	WHERE account_owner IN ("Kevin", "Carla")
+	GROUP BY 1
+)
+SELECT
+	COUNT(DISTINCT b.store_id) stores
+FROM kevincarla_bus a
+JOIN `Table_BusinessData` b
+USING(business_id)
+
+WITH kevincarla_bus AS (
+	SELECT
+		business_id
+	FROM `Table_AccountOwner_Business_Mapping`
+	WHERE account_owner IN ("Kevin", "Carla")
+	GROUP BY 1
+),
+kevincarla_stores AS (
+	SELECT
+		b.store_id
+	FROM kevincarla_bus a
+	JOIN `Table_BusinessData` b
+	USING(business_id)
+	GROUP BY 1
+),
+monthly_sales AS (
+	SELECT
+		--DATE_TRUNC(date, MONTH) month,
+		EXTRACT(YEAR FROM date) year,
+		EXTRACT(MONTH FROM date) month,
+		SUM(order_value) monthly_sales
+	FROM `Table_DeliveryData`
+	WHERE store_id IN (SELECT store_id FROM kevincarla_stores)
+	GROUP BY 1, 2
+)
+SELECT
+	year,
+	month,
+	monthly_sales,
+	SUM(monthly_sales) OVER (ORDER BY year, month) AS running_total
+FROM monthly_sales
+ORDER BY 1, 2
+
+
