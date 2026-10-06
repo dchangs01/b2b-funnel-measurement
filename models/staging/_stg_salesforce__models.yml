@@ -1,0 +1,14 @@
+models:
+  - name: stg_salesforce__leads
+    columns:
+      - name: lead_id
+        data_tests:
+          - unique
+          - not_null
+
+  - name: stg_salesforce__accounts
+    columns:
+      - name: account_id
+        data_tests:
+          - unique
+          - not_null
