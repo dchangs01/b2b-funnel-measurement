@@ -1,0 +1,7 @@
+models:
+  - name: stg_marketing_ops__experiment_assignment
+    columns:
+      - name: experiment_id
+        data_tests:
+          - unique
+          - not_null

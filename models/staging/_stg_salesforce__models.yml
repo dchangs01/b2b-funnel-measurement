@@ -1,4 +1,11 @@
 models:
+  - name: stg_salesforce__accounts
+    columns:
+      - name: account_id
+        data_tests:
+          - unique
+          - not_null
+
   - name: stg_salesforce__leads
     columns:
       - name: lead_id
@@ -6,9 +13,59 @@ models:
           - unique
           - not_null
 
-  - name: stg_salesforce__accounts
+  - name: stg_salesforce__lead_history
     columns:
-      - name: account_id
+      - name: lead_history_id
         data_tests:
           - unique
           - not_null
+
+  - name: stg_salesforce__contacts
+    columns:
+      - name: contact_id
+        data_tests:
+          - unique
+          - not_null
+
+  - name: stg_salesforce__opportunities
+    columns:
+      - name: opportunity_id
+        data_tests:
+          - unique
+          - not_null
+
+  - name: stg_salesforce__opportunity_history
+    columns:
+      - name: opportunity_history_id
+        data_tests:
+          - unique
+          - not_null
+
+  - name: stg_salesforce__opportunity_contact_role
+    columns:
+      - name: opportunity_contact_role_id
+        data_tests:
+          - unique
+          - not_null
+
+  - name: stg_salesforce__campaign
+    columns:
+      - name: campaign_id
+        data_tests:
+          - unique
+          - not_null
+
+  - name: stg_salesforce__campaign_member
+    columns:
+      - name: campaign_member_id
+        data_tests:
+          - unique
+          - not_null
+
+  - name: stg_salesforce__user
+    columns:
+      - name: user_id
+        data_tests:
+          - unique
+          - not_null
+

@@ -1,0 +1,7 @@
+models:
+  - name: stg_ads__ad_spend_daily
+    columns:
+      - name: ad_spend_id
+        data_tests:
+          - unique
+          - not_null

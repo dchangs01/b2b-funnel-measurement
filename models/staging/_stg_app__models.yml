@@ -1,0 +1,14 @@
+models:
+  - name: stg_app__users
+    columns:
+      - name: user_id
+        data_tests:
+          - unique
+          - not_null
+
+  - name: stg_app__usage_monthly
+    columns:
+      - name: usage_monthly_id
+        data_tests:
+          - unique
+          - not_null

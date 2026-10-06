@@ -1,14 +1,24 @@
 SELECT
     id AS lead_id,
+    first_name,
+    last_name,
     lower(email) AS email,
     split_part(lower(email), '@', 2) AS email_domain,
+    title,
     company,
     status,
     lead_source,
+    industry,
+    number_of_employees,
+    country,
+    owner_id,
     is_converted,
+    converted_date,
     converted_account_id,
-    created_date AS created_at,
-    mql_date_c AS mql_at_field,
-    sql_date_c AS sql_at
+    converted_contact_id,
+    converted_opportunity_id,
+    mql_date_c AS mql_date,
+    sql_date_c AS sql_date,
+    created_date
 FROM {{ source('salesforce', 'lead') }}
 WHERE NOT is_deleted
