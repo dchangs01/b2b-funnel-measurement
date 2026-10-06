@@ -7,6 +7,6 @@ SELECT
     status,
     has_responded,
     first_responded_date,
-    created_date
+    created_date AS created_at
 FROM {{ source('salesforce', 'campaign_member') }}
 WHERE NOT is_deleted

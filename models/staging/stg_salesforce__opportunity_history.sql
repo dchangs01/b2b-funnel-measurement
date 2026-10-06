@@ -1,7 +1,7 @@
 SELECT
     id AS opportunity_history_id,
     opportunity_id,
-    created_date,
+    created_date AS changed_at,
     stage_name,
     amount,
     close_date,

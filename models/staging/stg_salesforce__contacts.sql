@@ -8,8 +8,8 @@ SELECT
     title,
     lead_source,
     owner_id,
-    mql_date_c AS mql_date,
-    sql_date_c AS sql_date,
-    created_date
+    mql_date_c AS mql_at,
+    sql_date_c AS sql_at,
+    created_date AS created_at
 FROM {{ source('salesforce', 'contact') }}
 WHERE NOT is_deleted

@@ -4,6 +4,6 @@ SELECT
     field,
     old_value,
     new_value,
-    created_date
+    created_date AS changed_at
 FROM {{ source('salesforce', 'lead_history') }}
 WHERE NOT is_deleted

@@ -41,28 +41,28 @@ models:
           - unique
           - not_null
 
-  - name: stg_salesforce__opportunity_contact_role
+  - name: stg_salesforce__opportunity_contact_roles
     columns:
       - name: opportunity_contact_role_id
         data_tests:
           - unique
           - not_null
 
-  - name: stg_salesforce__campaign
+  - name: stg_salesforce__campaigns
     columns:
       - name: campaign_id
         data_tests:
           - unique
           - not_null
 
-  - name: stg_salesforce__campaign_member
+  - name: stg_salesforce__campaign_members
     columns:
       - name: campaign_member_id
         data_tests:
           - unique
           - not_null
 
-  - name: stg_salesforce__user
+  - name: stg_salesforce__users
     columns:
       - name: user_id
         data_tests:

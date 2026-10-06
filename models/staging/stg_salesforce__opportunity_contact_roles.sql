@@ -4,6 +4,6 @@ SELECT
     contact_id,
     role,
     is_primary,
-    created_date
+    created_date AS created_at
 FROM {{ source('salesforce', 'opportunity_contact_role') }}
 WHERE NOT is_deleted
