@@ -1,4 +1,5 @@
 SELECT
+    CONCAT(experiment_id, '-', account_id) AS experiment_assignment_id,
     experiment_id,
     experiment_name,
     account_id,

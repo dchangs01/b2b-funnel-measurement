@@ -1,7 +1,22 @@
 models:
-  - name: stg_marketing_ops__experiment_assignment
+  - name: stg_marketing_ops__experiment_assignments
     columns:
-      - name: experiment_id
+      - name: experiment_assignment_id
         data_tests:
           - unique
           - not_null
+
+      - name: account_id
+        data_tests:
+          - unique
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_salesforce__accounts')
+                field: account_id
+
+      - name: assigned_group
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['treatment', 'holdout']

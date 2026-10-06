@@ -31,4 +31,4 @@ models:
     intermediate:
       +materialized: view
     marts:
-      +materizlized: table
+      +materialized: table
