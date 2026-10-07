@@ -1,0 +1,12 @@
+models:
+  - name: int_lead_stage_dates
+    columns:
+      - name: lead_id
+        data_tests:
+          - unique
+          - not_null
+      - name: mql_at_source
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['lead_history', 'mql_date_field']
