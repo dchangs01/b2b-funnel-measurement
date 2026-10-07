@@ -10,3 +10,21 @@ models:
           - accepted_values:
               arguments:
                 values: ['lead_history', 'mql_date_field']
+
+  - name: int_leads_matched_to_accounts
+    columns:
+      - name: lead_id
+        data_tests:
+          - unique
+          - not_null
+      - name: account_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_salesforce__accounts')
+                field: account_id
+      - name: match_method
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['converted', 'email_domain']
