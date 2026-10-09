@@ -50,3 +50,13 @@ models:
           - accepted_values:
               arguments:
                 values: ['New Business', 'Expansion']
+
+  - name: int_funnel_spine
+    columns:
+      - name: lead_id
+        data_tests:
+          - unique
+          - not_null
+      - name: opportunity_id
+        data_tests:
+          - unique
