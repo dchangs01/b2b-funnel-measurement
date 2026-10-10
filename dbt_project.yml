@@ -32,3 +32,6 @@ models:
       +materialized: view
     marts:
       +materialized: table
+
+vars:
+  as_of_date: '2026-09-30'

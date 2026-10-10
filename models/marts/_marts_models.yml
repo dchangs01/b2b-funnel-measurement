@@ -1,0 +1,15 @@
+models:
+  - name: funnel_transitions
+    columns:
+      - name: funnel_transition_id
+        data_tests:
+          - unique
+          - not_null
+      - name: from_stage
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['lead', 'mql', 'sql', 'opportunity']
+      - name: advanced
+        data_tests:
+          - not_null
