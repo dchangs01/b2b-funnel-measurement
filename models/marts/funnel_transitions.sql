@@ -76,7 +76,7 @@ SELECT
 	entered_to_at,
 	entered_to_at IS NOT NULL AS advanced,
 	DATE_DIFF('day', entered_from_at, entered_to_at) AS days_to_advance,
-	DATE_DIFF('day', entered_from_at, DATE '{{ var("as_of_date") }}' ) AS days_since_entered
+	DATE_DIFF('day', entered_from_at, DATE '{{ var("as_of_date") }}') AS days_since_entered
 FROM combined
 
 
