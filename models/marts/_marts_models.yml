@@ -28,3 +28,6 @@ models:
       - name: converted_within_60d
         data_tests:
           - not_null
+          - accepted_values: 
+              arguments:
+                values: [0, 1]

@@ -22,7 +22,7 @@ eligible_leads AS (
 	WHERE from_stage = 'mql'
 ),
 
-eligible_experiments AS (
+accounts_with_outcomes AS (
 	SELECT
 		experiments.experiment_id,
 		experiments.experiment_name,
@@ -37,11 +37,11 @@ eligible_experiments AS (
 		MAX(CASE WHEN eligible_leads.days_to_advance <= 60 THEN 1 ELSE 0 END) AS converted_within_60d
 	FROM experiments
 	LEFT JOIN eligible_leads
-	ON experiments.account_id = eligible_leads.account_id
+	ON (experiments.account_id = eligible_leads.account_id OR experiments.trigger_lead_id = eligible_leads.lead_id)
 	-- Cast to DATE to catch timestamp drift
 	AND eligible_leads.entered_from_at::DATE <= DATE '2026-03-31'
 	AND eligible_leads.entered_from_at::DATE >= experiments.assigned_at::DATE
 	GROUP BY 1, 2, 3, 4, 5, 6, 7, 8
 )
 
-SELECT * FROM eligible_experiments
+SELECT * FROM accounts_with_outcomes
